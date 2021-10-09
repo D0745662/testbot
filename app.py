@@ -18,6 +18,7 @@ from linebot.exceptions import (
 )
 from linebot.models import *
 import re
+import time
 app = Flask(__name__)
 
 # 必須放上自己的Channel Access Token
@@ -26,6 +27,7 @@ line_bot_api = LineBotApi('F49hdXd2BxZ8DzznS+0I7GUhQYGI6OT97CvHWRihzS/1z/pcu9tTF
 handler = WebhookHandler('bca5248a9c30651b6730179bdd37515b')
 
 line_bot_api.push_message('U6ec9a01882a0c90ceaa97f7c7ae90ab8', TextSendMessage(text='你可以開始了'))
+yourID = 'U6ec9a01882a0c90ceaa97f7c7ae90ab8'
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -52,6 +54,9 @@ def handle_message(event):
     message = text=event.message.text
     if re.match('告訴我秘密',message):
         line_bot_api.reply_message(event.reply_token,TextSendMessage('才不告訴你哩！'))
+        for i in [5,4,3,2,1]:
+            line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
+            time.sleep(1)
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 #主程式

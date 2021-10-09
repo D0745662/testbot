@@ -57,10 +57,10 @@ def handle_message(event):
         for i in [5,4,3,2,1]:
             line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
             time.sleep(1)
-        sticker_message = StickerSendMessage(package_id=6325,sticker_id=10979904)
-        line_bot_api.reply_message(event.reply_token, sticker_message)
     else:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+        sticker_message = StickerSendMessage(package_id=1,sticker_id=1)
+        line_bot_api.reply_message(event.reply_token, sticker_message)
+        #line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 #主程式
 import os
 if __name__ == "__main__":

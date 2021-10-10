@@ -63,7 +63,7 @@ def handle_message(event):
         #line_bot_api.reply_message(event.reply_token, sticker_message)
         ##位置
         location_message  = LocationSendMessage(title = '推薦酒吧', address = '準備中',
-                                                latitude=24.155740154147097, longitude=120.64711658696197)
+                                                latitude=24.155732100748097, longitude=120.64707590363155)
         line_bot_api.reply_message(event.reply_token, location_message)
         #line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 #主程式

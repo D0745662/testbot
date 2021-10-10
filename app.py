@@ -54,6 +54,7 @@ def handle_message(event):
     message = text=event.message.text
     if re.match('告訴我秘密',message):
         location_message = LocationSendMessage(
+            type = location,
             title='日治時期的古蹟',
             address='總統府',
             latitude=25.040213810016002,

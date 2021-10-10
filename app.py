@@ -54,13 +54,13 @@ def handle_message(event):
     message = text=event.message.text
     if re.match('告訴我秘密',message):
         line_bot_api.reply_message(event.reply_token,TextSendMessage('才不告訴你哩！'))
-        for i in [5,4,3,2,1]:
-            line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
-            time.sleep(1)
+        #for i in [5,4,3,2,1]:
+         #   line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
+          #  time.sleep(1)
     else:
         ##貼圖
-        sticker_message = StickerSendMessage(package_id=1,sticker_id=1)
-        line_bot_api.reply_message(event.reply_token, sticker_message)
+        #sticker_message = StickerSendMessage(package_id=1,sticker_id=1)
+        #line_bot_api.reply_message(event.reply_token, sticker_message)
         ##位置
         location_message  = LocationSendMessage(title = '推薦酒吧', address = '準備中',
                                                 latitude=24.155865751279045, longitude=120.6472039306888)

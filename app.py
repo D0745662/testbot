@@ -57,13 +57,13 @@ def handle_message(event):
         #for i in [5,4,3,2,1]:
          #   line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
           #  time.sleep(1)
-    else:
-        ##貼圖
+    else:  
+        ##貼圖 
         #sticker_message = StickerSendMessage(package_id=1,sticker_id=1)
         #line_bot_api.reply_message(event.reply_token, sticker_message)
         ##位置
         location_message  = LocationSendMessage(title = '推薦酒吧', address = '準備中',
-                                                latitude=24.155865751279045, longitude=120.6472039306888)
+                                                latitude=24.155740154147097, longitude=120.64711658696197)
         line_bot_api.reply_message(event.reply_token, location_message)
         #line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 #主程式

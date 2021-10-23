@@ -52,8 +52,20 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    if re.match('告訴我秘密',message):
-        line_bot_api.reply_message(event.reply_token,TextSendMessage('才不告訴你哩！'))
+    if re.match('game',message):
+        flex_message = TextSendMessage(text='以下有雷，請小心',
+                               quick_reply=QuickReply(items=[
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="別按我", text="爆炸了！！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！"))
+                               ]))
+        line_bot_api.reply_message(event.reply_token, flex_message)
         #for i in [5,4,3,2,1]:
          #   line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
           #  time.sleep(1)
@@ -66,11 +78,12 @@ def handle_message(event):
         #                                        latitude=24.155732100748097, longitude=120.64707590363155)
         #line_bot_api.reply_message(event.reply_token, location_message)
         ##圖片
-        image_message = ImageSendMessage(
-            original_content_url='https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png',
-            preview_image_url= 'https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png')
-        line_bot_api.reply_message(event.reply_token, image_message)
+        #image_message = ImageSendMessage(
+         #   original_content_url='https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png',
+          #  preview_image_url= 'https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png')
+        #line_bot_api.reply_message(event.reply_token, image_message)
         #line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage('test！'))
 #主程式
 import os
 if __name__ == "__main__":

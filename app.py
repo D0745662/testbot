@@ -76,7 +76,7 @@ def handle_message(event):
                 ),
                 MessageAction(
                     label='confirm template',
-                    text='Confirm template'
+                    text='confirm template'
                 )
             ]
         )
@@ -106,7 +106,7 @@ def handle_message(event):
             line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
             time.sleep(1)
         '''
-    elif re.match('Confirm template',message):
+    elif re.match('confirm template',message):
         confirm_template_message = TemplateSendMessage(
             alt_text='問問題',
             template=ConfirmTemplate(
@@ -118,14 +118,46 @@ def handle_message(event):
                     ),
                     MessageAction(
                         label='不踢掉',
-                        #display_text='不舒坦'
+                        #display_text='不舒坦' 
                         text='不舒坦'
+                    ),
+                    MessageAction(
+                        label='carousel template',
+                        #display_text='不舒坦' 
+                        text='carousel template'
                     )
                 ]
             )
         )
         line_bot_api.reply_message(event.reply_token, confirm_template_message)
         
+        
+        
+        
+        
+    elif re.match('carousel template',message):
+        image_carousel_template_message = TemplateSendMessage(
+            alt_text='圖片',
+            template=ImageCarouselTemplate(
+                columns=[
+                    ImageCarouselColumn(
+                        image_url='https://imgur.dcard.tw/KQ3NxARh.jpg',
+                        action=URIAction(
+                            label='我要喝這個',
+                            uri='https://www.twitch.tv/gunguno'
+                        )
+                    ),
+                    ImageCarouselColumn(
+                        image_url='https://i.imgur.com/0mC9Ix6.jpg',
+                        action=URIAction(
+                            label='我要喝這個',
+                            uri='https://www.twitch.tv/gunguno'
+                        )
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
         
     else :  
         '''

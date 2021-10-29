@@ -57,7 +57,7 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text='這個是跳訊息的預覽',
         template=ButtonsTemplate(               ##最多4個
-            thumbnail_image_url='https://i.imgur.com/Aax1R2U.jpg',
+            thumbnail_image_url='https://i.imgur.com/GLElBwY.jpg',
             title='調酒推薦',
             text='選單功能－TemplateSendMessage',
             actions=[
@@ -135,6 +135,13 @@ def handle_message(event):
             alt_text='圖片',
             template=ImageCarouselTemplate(
                 columns=[
+                    ImageCarouselColumn(
+                        image_url='https://i.imgur.com/Aax1R2U.jpg',
+                        action=URIAction(
+                            label='我要喝這個',
+                            uri='https://www.twitch.tv/gunguno'
+                        )
+                    ),
                     ImageCarouselColumn(
                         image_url='https://imgur.dcard.tw/KQ3NxARh.jpg',
                         action=URIAction(

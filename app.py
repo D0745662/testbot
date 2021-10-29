@@ -54,58 +54,97 @@ def handle_message(event):
     message = text=event.message.text
     if re.match('game',message):
         
-        Confirm_template = TemplateSendMessage(
-        alt_text='目錄 template',
-        template=ConfirmTemplate(
-            title='這是ConfirmTemplate',
-            text='這就是ConfirmTemplate,用於兩種按鈕選擇',
-            actions=[                              
-                PostbackTemplateAction(
-                    label='Y',
-                    text='Y',
-                    data='action=buy&itemid=1'
+        buttons_template_message = TemplateSendMessage(
+        alt_text='這個可當註解',
+        template=ButtonsTemplate(               ##最多4個
+            thumbnail_image_url='https://i.imgur.com/Aax1R2U.jpg',
+            title='調酒推薦',
+            text='選單功能－TemplateSendMessage',
+            actions=[
+                PostbackAction(
+                    label='POST',
+                    display_text='顯示文字',
+                    data='action=檯面下'
                 ),
-                MessageTemplateAction(
-                    label='N',
-                    text='N'
+                MessageAction(
+                    label='直接傳',
+                    text='我就是資料'
+                ),
+                URIAction(
+                    label='傳url',
+                    uri='https://www.twitch.tv/gunguno'
+                ),
+                MessageAction(
+                    label='confirm template',
+                    text='Confirm template'
                 )
             ]
         )
     )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        line_bot_api.reply_message(event.reply_token, buttons_template_message) 
         
+        ### quick reply
+        '''
+        flex_message = TextSendMessage(text='以下有雷，請小心',
+                               quick_reply=QuickReply(items=[
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="別按我", text="爆炸了！！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！")),
+                                   QuickReplyButton(action=MessageAction(label="按我", text="按！"))
+                               ]))     
+        line_bot_api.reply_message(event.reply_token, flex_message)
+        '''
         
-        
-        
-        
-        
-        
-        
-        
-        
+        ##迴圈
+        '''
+        for i in [5,4,3,2,1]:
+            line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
+            time.sleep(1)
+        '''
+    elif re.match('confirm template',message):
+        confirm_template_message = TemplateSendMessage(
+            alt_text='問問題',
+            template=ConfirmTemplate(
+                text='你喜這堂課嗎？',
+                actions=[
+                    PostbackAction(
+                        label='喜歡',
+                        display_text='超喜歡',
+                        data='action=其實不喜歡'
+                    ),
+                    MessageAction(
+                        label='愛',
+                        text='愛愛❤'
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, confirm_template_message)
         
         
     else :  
         '''
         ##貼圖 
-        
         sticker_message = StickerSendMessage(package_id=1,sticker_id=1)
         line_bot_api.reply_message(event.reply_token, sticker_message)
         
         
         ##位置
-        
         location_message  = LocationSendMessage(title = '推薦酒吧', address = '準備中',
                                                 latitude=24.155732100748097, longitude=120.64707590363155)
         line_bot_api.reply_message(event.reply_token, location_message)
         
         ##圖片
-        
         image_message = ImageSendMessage(
         original_content_url='https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png',
         preview_image_url= 'https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png')
         line_bot_api.reply_message(event.reply_token, image_message)
-        ''' 
+        '''
         
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
         #line_bot_api.reply_message(event.reply_token,TextSendMessage('test！'))

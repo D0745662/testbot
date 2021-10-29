@@ -55,7 +55,7 @@ def handle_message(event):
     if re.match('game',message):
         
         buttons_template_message = TemplateSendMessage(
-        alt_text='這個可當註解',
+        alt_text='這個是跳訊息的預覽',
         template=ButtonsTemplate(               ##最多4個
             thumbnail_image_url='https://i.imgur.com/Aax1R2U.jpg',
             title='調酒推薦',
@@ -110,16 +110,15 @@ def handle_message(event):
         confirm_template_message = TemplateSendMessage(
             alt_text='問問題',
             template=ConfirmTemplate(
-                text='你喜這堂課嗎？',
+                text='踢掉嗎',
                 actions=[
-                    PostbackAction(
-                        label='喜歡',
-                        display_text='超喜歡',
-                        data='action=其實不喜歡'
+                    MessageAction(
+                        label='踢掉',
+                        text='舒坦'
                     ),
                     MessageAction(
-                        label='愛',
-                        text='愛愛❤'
+                        label='不踢掉',
+                        display_text='不舒坦'
                     )
                 ]
             )

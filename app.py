@@ -53,6 +53,7 @@ def callback():
 def handle_message(event):
     message = text=event.message.text
     if re.match('game',message):
+        
         buttons_template_message = TemplateSendMessage(
         alt_text='這個可當註解',
         template=ButtonsTemplate(               ##最多4個
@@ -105,8 +106,8 @@ def handle_message(event):
             line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
             time.sleep(1)
         '''
-    elif event.message.text == "Confirm template":
-        print("Confirm template")       
+    elif re.match('Confirm template',message):
+        #print("Confirm template")       
         Confirm_template = TemplateSendMessage(
         alt_text='目錄 template',
         template=ConfirmTemplate(

@@ -118,7 +118,8 @@ def handle_message(event):
                     ),
                     MessageAction(
                         label='不踢掉',
-                        display_text='不舒坦'
+                        #display_text='不舒坦'
+                        text='不舒坦'
                     )
                 ]
             )

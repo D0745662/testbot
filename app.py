@@ -106,6 +106,7 @@ def handle_message(event):
             line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
             time.sleep(1)
         '''
+        
     elif re.match('confirm template',message):
         confirm_template_message = TemplateSendMessage(
             alt_text='問問題',
@@ -117,13 +118,7 @@ def handle_message(event):
                         text='舒坦'
                     ),
                     MessageAction(
-                        label='不踢掉',
-                        #display_text='不舒坦' 
-                        text='不舒坦'
-                    ),
-                    MessageAction(
                         label='carousel template',
-                        #display_text='不舒坦' 
                         text='carousel template'
                     )
                 ]

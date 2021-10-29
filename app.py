@@ -53,6 +53,33 @@ def callback():
 def handle_message(event):
     message = text=event.message.text
     if re.match('game',message):
+        buttons_template_message = TemplateSendMessage(
+        alt_text='這個可當註解',
+        template=ButtonsTemplate(
+            thumbnail_image_url='https://i.imgur.com/Aax1R2U.jpg',
+            title='調酒推薦',
+            text='選單功能－TemplateSendMessage',
+            actions=[
+                PostbackAction(
+                    label='POST',
+                    display_text='POST',
+                    data='action=檯面下'
+                ),
+                MessageAction(
+                    label='直接傳',
+                    text='我就是資料'
+                ),
+                URIAction(
+                    label='傳url',
+                    uri='https://www.twitch.tv/gunguno'
+                )
+            ]
+        )
+    )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        
+        ### quick reply
+        '''
         flex_message = TextSendMessage(text='以下有雷，請小心',
                                quick_reply=QuickReply(items=[
                                    QuickReplyButton(action=MessageAction(label="按我", text="按！")),
@@ -66,25 +93,38 @@ def handle_message(event):
                                    QuickReplyButton(action=MessageAction(label="按我", text="按！"))
                                ]))     
         line_bot_api.reply_message(event.reply_token, flex_message)
-
-        #for i in [5,4,3,2,1]:
-         #   line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
-          #  time.sleep(1)
+        '''
+        
+        ##迴圈
+        '''
+        for i in [5,4,3,2,1]:
+            line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
+            time.sleep(1)
+        '''
     else:  
         ##貼圖 
-        #sticker_message = StickerSendMessage(package_id=1,sticker_id=1)
-        #line_bot_api.reply_message(event.reply_token, sticker_message)
+        '''
+        sticker_message = StickerSendMessage(package_id=1,sticker_id=1)
+        line_bot_api.reply_message(event.reply_token, sticker_message)
+        '''
+        
         ##位置
-        #location_message  = LocationSendMessage(title = '推薦酒吧', address = '準備中',
-        #                                        latitude=24.155732100748097, longitude=120.64707590363155)
-        #line_bot_api.reply_message(event.reply_token, location_message)
+        '''
+        location_message  = LocationSendMessage(title = '推薦酒吧', address = '準備中',
+                                                latitude=24.155732100748097, longitude=120.64707590363155)
+        line_bot_api.reply_message(event.reply_token, location_message)
+        '''
         ##圖片
-        #image_message = ImageSendMessage(
-         #   original_content_url='https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png',
-          #  preview_image_url= 'https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png')
-        #line_bot_api.reply_message(event.reply_token, image_message)
-        #line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
-        line_bot_api.reply_message(event.reply_token,TextSendMessage('test！'))
+        '''
+        image_message = ImageSendMessage(
+        original_content_url='https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png',
+        preview_image_url= 'https://memeprod.ap-south-1.linodeobjects.com/user-template/e34fbd9d0e8fbd3b135283d9131fb51c.png')
+        line_bot_api.reply_message(event.reply_token, image_message)
+        ''' 
+        
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+        #line_bot_api.reply_message(event.reply_token,TextSendMessage('test！'))
+        
 #主程式
 import os
 if __name__ == "__main__":

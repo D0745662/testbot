@@ -55,14 +55,14 @@ def handle_message(event):
     if re.match('game',message):
         buttons_template_message = TemplateSendMessage(
         alt_text='這個可當註解',
-        template=ButtonsTemplate(
+        template=ButtonsTemplate(               ##最多4個
             thumbnail_image_url='https://i.imgur.com/Aax1R2U.jpg',
             title='調酒推薦',
             text='選單功能－TemplateSendMessage',
             actions=[
                 PostbackAction(
                     label='POST',
-                    display_text='POST',
+                    display_text='顯示文字',
                     data='action=檯面下'
                 ),
                 MessageAction(
@@ -72,6 +72,10 @@ def handle_message(event):
                 URIAction(
                     label='傳url',
                     uri='https://www.twitch.tv/gunguno'
+                ),
+                MessageAction(
+                    label='confirm template',
+                    text='Confirm template'
                 )
             ]
         )
@@ -101,6 +105,30 @@ def handle_message(event):
             line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
             time.sleep(1)
         '''
+    elif event.message.text == "Confirm template":
+        print("Confirm template")       
+        Confirm_template = TemplateSendMessage(
+        alt_text='目錄 template',
+        template=ConfirmTemplate(
+            title='這是ConfirmTemplate',
+            text='這就是ConfirmTemplate,用於兩種按鈕選擇',
+            actions=[                              
+                PostbackTemplateAction(
+                    label='Y',
+                    text='Y',
+                    data='action=buy&itemid=1'
+                ),
+                MessageTemplateAction(
+                    label='N',
+                    text='N'
+                )
+            ]
+        )
+    )
+         
+        line_bot_api.reply_message(event.reply_token, buttons_template_message) 
+        
+    
     else:  
         ##貼圖 
         '''

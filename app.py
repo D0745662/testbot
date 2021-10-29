@@ -106,7 +106,7 @@ def handle_message(event):
             line_bot_api.push_message(yourID, TextSendMessage(text= '倒數:'+str(i)))
             time.sleep(1)
         '''
-    elif re.match('confirm template',message):
+    elif re.match('Confirm template',message):
         confirm_template_message = TemplateSendMessage(
             alt_text='問問題',
             template=ConfirmTemplate(

@@ -68,7 +68,7 @@ def handle_message(event):
                 ),
                 MessageAction(
                     label='直接傳',
-                    text=event.reply_token
+                    text='我就是資料'
                 ),
                 URIAction(
                     label='傳url',
@@ -115,6 +115,10 @@ def handle_message(event):
                 actions=[
                     MessageAction(
                         label='踢掉',
+                        text='舒坦1'
+                    ),
+                    MessageAction(
+                        label=event.reply_token,
                         text=event.reply_token
                     ),
                     MessageAction(

@@ -68,7 +68,7 @@ def handle_message(event):
                 ),
                 MessageAction(
                     label='直接傳',
-                    text='我就是資料'
+                    text=event.source.userId
                 ),
                 URIAction(
                     label='傳url',
@@ -115,11 +115,7 @@ def handle_message(event):
                 actions=[
                     MessageAction(
                         label='踢掉',
-                        text='舒坦1'
-                    ),
-                    MessageAction(
-                        label=event.reply_token,
-                        text=event.reply_token
+                        text='舒坦啊'
                     ),
                     MessageAction(
                         label='carousel template',
@@ -142,7 +138,7 @@ def handle_message(event):
                     ImageCarouselColumn(
                         image_url='https://i.imgur.com/Aax1R2U.jpg',
                         action=URIAction(
-                            label='附近有什麽酒吧',
+                            label='附近有什麽',
                             uri='https://www.google.com.tw/maps/search/%E9%85%92%E5%90%A7/@24.1708234,120.6552069,15z/data=!3m1!4b1'
                         )
                     ),

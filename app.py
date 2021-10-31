@@ -68,7 +68,7 @@ def handle_message(event):
                 ),
                 MessageAction(
                     label='直接傳',
-                    text='我就是資料'
+                    text=event.reply_token
                 ),
                 URIAction(
                     label='傳url',
@@ -115,7 +115,7 @@ def handle_message(event):
                 actions=[
                     MessageAction(
                         label='踢掉',
-                        text='舒坦'
+                        text=event.reply_token
                     ),
                     MessageAction(
                         label='carousel template',

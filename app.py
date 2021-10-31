@@ -68,7 +68,7 @@ def handle_message(event):
                 ),
                 MessageAction(
                     label='直接傳',
-                    text=event.source.userId
+                    text="123123"
                 ),
                 URIAction(
                     label='傳url',

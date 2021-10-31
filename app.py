@@ -138,8 +138,8 @@ def handle_message(event):
                     ImageCarouselColumn(
                         image_url='https://i.imgur.com/Aax1R2U.jpg',
                         action=URIAction(
-                            label='我要喝這個',
-                            uri='https://www.twitch.tv/gunguno'
+                            label='附近有什麽酒吧',
+                            uri='https://www.google.com.tw/maps/search/%E9%85%92%E5%90%A7/@24.1708234,120.6552069,15z/data=!3m1!4b1'
                         )
                     ),
                     ImageCarouselColumn(

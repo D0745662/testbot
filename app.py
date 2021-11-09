@@ -6,7 +6,7 @@ Created on Wed Jun  2 21:16:35 2021
 Line Bot聊天機器人
 第三章 互動回傳功能
 推播push_message與回覆reply_message
-webhook url : https://new0910.herokuapp.com/callback
+webhook url : 
 localhost: https://7580-39-9-62-241.ngrok.io 
 """
 #載入LineBot所需要的套件
@@ -50,8 +50,7 @@ line_bot_api = LineBotApi('x5n8YbrOgkMSRo7brN4gHVioy/wkXS2iy7KJGViyKCug4kbh65t2f
 handler = WebhookHandler('bca5248a9c30651b6730179bdd37515b')
 handler = WebhookHandler('7f794bfca35c8d7ed6f11a140ef27de9')
 line_bot_api.push_message('U34a6e253296d26ae5645c93fed7676bd', TextSendMessage(text='你可以開始了'))
-yourID = 'U6ec9a01882a0c90ceaa97f7c7ae90ab8'
-yourID = 'U34a6e253296d26ae5645c93fed7676bd'
+
 
 
 default_image = ['https://www.thecocktaildb.com/images/media/drink/5jhyd01582579843.jpg',
@@ -112,7 +111,7 @@ def handle_follow(event):
 def location(event):
     lat = event.message.latitude
     lng = event.message.longitude
-    barSearch = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key={}&location={},{}&rankby=distance&type=bar&language=zh-TW".format('AIzaSyD3-b6TVXKGyWGESYASzHrPUMGK1VVoUNk',lat ,lng)
+    barSearch = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key={}&location={},{}&rankby=distance&type=bar&language=zh-TW".format('',lat ,lng)
     barReq = requests.get(barSearch)
     nearby_bar_dict = barReq.json()
     top20_bar= nearby_bar_dict["results"]
@@ -130,39 +129,55 @@ def location(event):
         content = "沒東西可以吃"
 
     bar = top20_bar[random.choice(bravo)]
-
-    if bar.get("photos") is None:
-        thumbnail_image_url = None
-    else:
-        photo_reference = bar["photos"][0]["photo_reference"]
-        photo_width = bar["photos"][0]["width"]
-        thumbnail_image_url = "https://maps.googleapis.com/maps/api/place/photo?key={}&photoreference={}&maxwidth={}".format('AIzaSyD3-b6TVXKGyWGESYASzHrPUMGK1VVoUNk',photo_reference,photo_width)
-
-    rating = "無" if bar.get("rating") is None else bar["rating"]
-    address = "沒有資料" if bar.get ("vicinity") is None else bar["vicinity"]
-    details = "Google Map評分 : {}\n地址 : {}".format(rating, address)
+    barlist = []
+    for i in range(0,4):
+        tempbar = top20_bar[random.choice(bravo)]
+        while tempbar in barlist:
+            tempbar = top20_bar[random.choice(bravo)]
+           
+        barlist.append(tempbar)
+    list_template = []    
+    for i in range(0,4):
+        print(i)
+        if barlist[i].get("photos") is None:
+            thumbnail_image_url = None
+        else:
+            photo_reference = barlist[i]["photos"][0]["photo_reference"]
+            photo_width = barlist[i]["photos"][0]["width"]
+            thumbnail_image_url = "https://maps.googleapis.com/maps/api/place/photo?key={}&photoreference={}&maxwidth={}".format('',photo_reference,photo_width)
     
-    map_url = "https://www.google.com/maps/search/?api=1&query={lat},{long}&query_place_id={place_id}".format(lat=bar["geometry"]["location"]["lat"],long=bar["geometry"]["location"]["lng"],place_id=bar["place_id"])
-
-    buttons_template = TemplateSendMessage(
-        alt_text=bar["name"],
-        template = ButtonsTemplate(
-            thumbnail_image_url=thumbnail_image_url,
-            title=bar["name"],
-            text=details,
-            actions=[
-                URITemplateAction(
-                    label='查看地圖',
-                    uri=map_url
-                ),
-                URITemplateAction(
-                    label='查看完整地圖',
-                    uri="https://www.google.com/maps/search/bar/@{},{},16z".format(lat,lng)
-                ),
-            ]
+        rating = "無" if barlist[i].get("rating") is None else barlist[i]["rating"]
+        address = "沒有資料" if barlist[i].get ("vicinity") is None else barlist[i]["vicinity"]
+        details = "Google Map評分 : {}\n地址 : {}".format(rating, address)
+        
+        map_url = "https://www.google.com/maps/search/?api=1&query={lat},{long}&query_place_id={place_id}".format(lat=barlist[i]["geometry"]["location"]["lat"],long=barlist[i]["geometry"]["location"]["lng"],place_id=barlist[i]["place_id"])
+        
+        item = CarouselColumn(
+           thumbnail_image_url=thumbnail_image_url,
+                title=barlist[i]["name"],
+                text=details,
+                actions=[
+                    URITemplateAction(
+                        label='查看地圖',
+                        uri=map_url
+                    ),
+                    URITemplateAction(
+                        label='查看完整地圖',
+                        uri="https://www.google.com/maps/search/bar/@{},{},16z".format(lat,lng)
+                    ),
+                ]
         )
-    )
-    line_bot_api.reply_message(event.reply_token, buttons_template)
+        list_template.append(item)
+    print(barlist)
+    Carousel_template = TemplateSendMessage(
+        alt_text='附近評價不錯的酒吧',
+        template=CarouselTemplate( 
+            columns=list_template
+        )
+    )   
+    
+    line_bot_api.reply_message(event.reply_token, Carousel_template)
+    
     return 0
 
 
